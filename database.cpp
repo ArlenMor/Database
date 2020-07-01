@@ -1,8 +1,7 @@
 //============================================================================
 // Name        : database.cpp
 // Author      : ArlenMor
-// Version     : 0.1
-// Copyright   : Your copyright notice
+// Version     : 0.2
 // Description : Database. The database stores pairs of the form: date - event
 // Description : We define the date as a string of the form Year-Month-Day, where Year, Month and Day are integers.
 // Operation   : 1. Add event								: 	Add date event
@@ -20,7 +19,19 @@ using namespace std;
 
 class Date{
 public:
-	//write constructor
+	Date()
+	{
+		year = 0;
+		month = 1;
+		day = 1;
+	}
+	Date(int new_year, int new_month, int new_day)
+	{
+		//check date
+		year = new_year;
+		month = new_month;
+		day = new_day;
+	}
 	int get_year() const;
 	int get_month() const;
 	int get_day() const;
@@ -68,12 +79,19 @@ bool operator == (const Date& lhs, const Date& rhs)
 			lhs.get_day() == rhs.get_day());
 }
 
+ostream& operator << (ostream& stream, const Date& date)
+{
+	return stream << date.get_year() << "-" << date.get_month() << "-" << date.get_day();
+}
+
 class Database {
 public:
 	void add_event (const Date& date, const string& event);
 	bool delete_event (const Date& date, const string& event);
 	int delete_date (const Date& date);
 	vector<string> Find (const Date& date) const;
+
+	void print_database();
 private:
 	map<Date, vector<string>> date_events;
 };
@@ -85,7 +103,8 @@ void Database::add_event(const Date& date, const string& event)
 
 bool Database::delete_event(const Date& date, const string& event)
 {
-	for(auto it_map = date_events.begin(); it_map != date_events.end(); ++it_map) //rewrite, rework
+	//rewrite, rework!!!!!!
+	for(auto it_map = date_events.begin(); it_map != date_events.end(); ++it_map)
 	{
 		if((*it_map).first == date)
 		{
@@ -110,6 +129,39 @@ int Database::delete_date(const Date& date)
 	return count_event;
 }
 
+void Database::print_database()
+{
+	for(const auto& item : date_events)
+	{
+		cout << "Date: " << item.first << " Events: ";
+		for(const auto& event : item.second)
+		{
+			cout << event << " ";
+		}
+		cout << endl;
+	}
+}
+
 int main() {
+	Database database;
+	string command;
+	while (getline(cin, command)) {
+		if(command == "Add")
+		{
+			cout << "I here" << endl;
+			int year, month, day;
+			cin >> year; cin.ignore(1);
+			cin >> month; cin.ignore(1);
+			cin >> day;
+			string event;
+			cin >> event;
+			Date date = {year, month, day};
+			database.add_event(date, event);
+			database.print_database();
+		}else if (command == "Del")
+		{
+
+		}
+	}
 	return 0;
 }
