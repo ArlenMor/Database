@@ -4,11 +4,11 @@
 // Version     : 1.0 release
 // Description : Database. The database stores pairs of the form: date - event
 // Description : We define the date as a string of the form Year-Month-Day, where Year, Month and Day are integers.
-// Operation   : 1. Add event								: 	Add date event
-// Operation   : 2. Delete event							:	Del date event
+// Operation   : 1. Add event					: 	Add date event
+// Operation   : 2. Delete event				:	Del date event
 // Operation   : 3. Delete all events for a specific date	:	Del date
 // Operation   : 4. Search for events for a specific date	:	Find date
-// Operation   : 5. Print all events for all dates			:	Print
+// Operation   : 5. Print all events for all dates		:	Print
 //============================================================================
 
 #include <iostream>
